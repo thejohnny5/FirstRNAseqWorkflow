@@ -1,0 +1,4 @@
+experiment: NMR_iPS
+genome_fasta: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/247/695/GCF_000247695.1_HetGla_female_1.0/GCF_000247695.1_HetGla_female_1.0_genomic.fna.gz
+genome_gtf: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/247/695/GCF_000247695.1_HetGla_female_1.0/GCF_000247695.1_HetGla_female_1.0_genomic.gtf.gz
+SRA: [SRR5985204, SRR5985215]
