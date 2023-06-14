@@ -2,16 +2,16 @@ import pandas as pd
 
 df = pd.read_csv("config/samples.tsv", sep='\t').set_index("experiments", drop=False)
 
-def split_urls(url):
+def split_urls(url: str) -> str:
 	#Split Url and return file name at end
     return url.split('/')[-1]
 
-def make_genome_name(genome_fasta):
+def make_genome_name(genome_fasta: str) -> str:
     #Return genome name from file name in the form GCF_00000000.1
     g_split = genome_fasta.split('_')
     return "_".join([g_split[0], g_split[1]])
 
-def fix_unzip_name(genome_fasta):
+def fix_unzip_name(genome_fasta: str) -> str:
     #Remove .gz from end of names
     if genome_fasta.endswith('.gz'):   
         name_list = genome_fasta.split('.')    
@@ -19,13 +19,13 @@ def fix_unzip_name(genome_fasta):
     else:
         return genome_fasta
 
-def make_samples_list(experiment):
+def make_samples_list(experiment: str) -> list[str]:
     samples = df["sra"][experiment]
     samples = samples.strip("[]")
     samples_list = samples.split(",")
     return samples_list
 
-def make_final_count_rule(df):
+def make_final_count_rule(df: pd.DataFrame) -> list[str]:
     out_list = []
     for experiment in df.index:
         samples_list = make_samples_list(experiment)
@@ -34,13 +34,13 @@ def make_final_count_rule(df):
             out_list.append(path_out)
     return out_list
 
-def make_exp_name(df):
+def make_exp_name(df: pd.DataFrame) -> str:
     exp_names = df.index.values.tolist()
     exp_names = [name[0:5] for name in exp_names]
     return ".".join(exp_names)
 #print(make_final_count_rule(df))
 
-def get_accession_links(file_shrunk, fasta_gtf):
+def get_accession_links(file_shrunk: str, fasta_gtf: pd.DataFrame) -> str:
     for link in df[fasta_gtf]:
         if file_shrunk in link:
             return link
